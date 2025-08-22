@@ -18,8 +18,8 @@ export default function CardShell({
   onBack,
   className,
   children,
-  currentStep,        // ❌ no default
-  totalSteps,         // ❌ no default
+  currentStep,        
+  totalSteps,         
   statusLabel,
 }: Props) {
   const showSteps =

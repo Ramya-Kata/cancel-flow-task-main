@@ -11,6 +11,14 @@ import CancelDoneVisaHelpNo from './CancelDoneVisaHelpNo'
 import CancelDoneVisaHelpYes from './CancelDoneVisaHelpYes'
 import OfferStillLooking from './OfferStillLooking'
 import SubscriptionContinued from './SubscriptionContinued'
+import OfferDeclinedUsage1 from './OfferDeclinedUsage1'
+import CancelReasons from './CancelReasons'
+import ReasonTooExpensive from './ReasonTooExpensive'
+import ReasonPlatformNotHelpful from './ReasonPlatformNotHelpful'
+import ReasonNotEnoughJobs from './ReasonNotEnoughJobs'
+import ReasonNotToMove from './ReasonNotToMove'
+import ReasonOther from './ReasonOther'
+import CancelEnd from './CancelEnd'
 
 export const registry = {
   Start,
@@ -26,4 +34,12 @@ export const registry = {
   CancelDoneVisaHelpNo,
   OfferStillLooking,
   SubscriptionContinued,
+  OfferDeclinedUsage1,
+  CancelReasons,
+  ReasonTooExpensive,
+  ReasonPlatformNotHelpful,
+  ReasonNotEnoughJobs,
+  ReasonNotToMove,
+  ReasonOther,
+  CancelEnd,
 }

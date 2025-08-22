@@ -52,7 +52,7 @@ export const flowGraph: FlowGraph = {
     job_not_yet: {
       id: 'job_not_yet',
       component: 'OfferStillLooking',
-      edges: { back: 'start', accept: 'subscription_continued', decline: 'confirm_cancel' },
+      edges: { back: 'start', accept: 'subscription_continued', decline: 'usage' },
     },
     subscription_continued: {
       id: 'subscription_continued',
@@ -60,6 +60,74 @@ export const flowGraph: FlowGraph = {
       edges: { back: 'job_not_yet' },       
     },
 
+    usage: {
+      id: 'usage',
+      component: 'OfferDeclinedUsage1', 
+      edges: { back: 'job_not_yet', accept: 'subscription_continued', continue: 'reasons' },
+    },
+    reasons: {
+      id: 'reasons',
+      component: 'CancelReasons',
+      edges: {
+        back: 'usage',
+        accept: 'subscription_continued',         
+        too_expensive: 'reason_too_expensive', 
+        platform_not_helpful: 'reason_platform_not_helpful',
+        not_enough_jobs: 'reason_not_enough_jobs',
+        not_to_move:'reason_not_to_move',
+        other:'reason_other',
+      },
+    },
+    reason_too_expensive: {
+      id: 'reason_too_expensive',
+      component: 'ReasonTooExpensive',
+      edges: {
+        back: 'reasons',
+        accept: 'subscription_continued',
+        complete: 'cancel_end',
+      },
+    },
+    reason_platform_not_helpful: {
+      id: 'reason_platform_not_helpful',
+      component: 'ReasonPlatformNotHelpful',
+      edges: {
+        back: 'reasons',
+        accept: 'subscription_continued',
+        complete: 'cancel_end',
+      },
+    },
+    reason_not_enough_jobs: {
+      id: 'reason_not_enough_jobs',
+      component: 'ReasonNotEnoughJobs',
+      edges: {
+        back: 'reasons',
+        accept: 'subscription_continued',
+        complete: 'cancel_end',
+      },
+    },
+    reason_not_to_move: {
+      id: 'reason_not_to_move',
+      component: 'ReasonNotToMove',
+      edges: {
+        back: 'reasons',
+        accept: 'subscription_continued',
+        complete: 'cancel_end',
+      },
+    },
+    reason_other: {
+      id: 'reason_other',
+      component: 'ReasonOther',
+      edges: {
+        back: 'reasons',
+        accept: 'subscription_continued',
+        complete: 'cancel_end',
+      },
+    },
+    cancel_end: {
+      id: 'cancel_end',
+      component: 'CancelEnd',
+      edges: { back:'start' },
+    },
     confirm_cancel: {
       id: 'confirm_cancel',
       component: 'ConfirmCancel',
