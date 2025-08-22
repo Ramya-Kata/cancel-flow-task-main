@@ -3,9 +3,7 @@ import NextImage from 'next/image';
 import skyline from '@/../public/empire-state-compressed.jpg';
 
 type Props = {
-  /** Height per breakpoint; override if a screen needs a different height */
   className?: string;
-  /** Corner radius override (optional) */
   rounded?: string;
 };
 

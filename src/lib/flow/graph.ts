@@ -52,9 +52,13 @@ export const flowGraph: FlowGraph = {
     job_not_yet: {
       id: 'job_not_yet',
       component: 'OfferStillLooking',
-      edges: { back: 'start', accept: 'success_keep', decline: 'confirm_cancel' },
+      edges: { back: 'start', accept: 'subscription_continued', decline: 'confirm_cancel' },
     },
-    
+    subscription_continued: {
+      id: 'subscription_continued',
+      component: 'SubscriptionContinued',
+      edges: { back: 'job_not_yet' },       
+    },
 
     confirm_cancel: {
       id: 'confirm_cancel',

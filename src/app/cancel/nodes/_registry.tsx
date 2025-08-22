@@ -10,6 +10,7 @@ import VisaNo from './VisaNo'
 import CancelDoneVisaHelpNo from './CancelDoneVisaHelpNo'
 import CancelDoneVisaHelpYes from './CancelDoneVisaHelpYes'
 import OfferStillLooking from './OfferStillLooking'
+import SubscriptionContinued from './SubscriptionContinued'
 
 export const registry = {
   Start,
@@ -24,4 +25,5 @@ export const registry = {
   CancelDoneVisaHelpYes,
   CancelDoneVisaHelpNo,
   OfferStillLooking,
+  SubscriptionContinued,
 }

@@ -1,8 +1,8 @@
 'use client';
 
 type Props = {
-  current: number;        // 1-based
-  total?: number;         // default 3
+  current: number;        
+  total?: number;         
   className?: string;
   completedColor?: string; 
 };

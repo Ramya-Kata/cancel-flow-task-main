@@ -7,10 +7,9 @@ type Props = {
   className?: string
   children: React.ReactNode
 
-  // progress / header extras
   currentStep?: number
   totalSteps?: number
-  statusLabel?: string        // <-- NEW (e.g. "Completed")
+  statusLabel?: string
 }
 
 export default function CardShell({
@@ -19,23 +18,38 @@ export default function CardShell({
   onBack,
   className,
   children,
-  currentStep = 1,
-  totalSteps = 3,
+  currentStep,        // ❌ no default
+  totalSteps,         // ❌ no default
   statusLabel,
 }: Props) {
-  const bars = Array.from({ length: totalSteps }, (_, i) => {
-    // if statusLabel is set, treat as completed (all green)
-    const base =
-      statusLabel
-        ? 'bg-emerald-500'
-        : i + 1 === currentStep
-          ? 'bg-gray-900'     // active
-          : 'bg-gray-300'     // inactive
+  const showSteps =
+    typeof totalSteps === 'number' &&
+    (typeof currentStep === 'number' || !!statusLabel);
 
-    return (
-      <span key={i} className={`h-1.5 w-6 rounded-full ${base}`} />
-    )
-  })
+  const bars = showSteps
+    ? Array.from({ length: totalSteps! }, (_, i) => {
+        const stepNum = i + 1;
+        const isCompleted =
+          !!statusLabel || (typeof currentStep === 'number' && stepNum < currentStep);
+        const isActive =
+          !statusLabel && typeof currentStep === 'number' && stepNum === currentStep;
+
+        const tone = isCompleted
+          ? 'bg-emerald-500'
+          : isActive
+          ? 'bg-gray-900'
+          : 'bg-gray-300';
+
+        return (
+          <span
+            key={i}
+            className={`h-1.5 w-6 rounded-full ${tone}`}
+            aria-label={`Step ${stepNum} ${isCompleted ? 'completed' : isActive ? 'current' : 'upcoming'}`}
+            aria-current={isActive ? 'step' : undefined}
+          />
+        );
+      })
+    : null;
 
   return (
     <div
@@ -51,7 +65,6 @@ export default function CardShell({
       {/* Title + controls */}
       <div className="border-b">
         <div className="relative flex items-center justify-between px-5 py-3">
-          {/* Back (only if provided) */}
           {onBack ? (
             <button
               aria-label="Back"
@@ -66,12 +79,10 @@ export default function CardShell({
             </button>
           ) : <span />}
 
-          {/* Centered title */}
           <div className="absolute left-0 right-0 flex justify-center pointer-events-none">
             <div className="text-sm font-medium text-gray-600">{title}</div>
           </div>
 
-          {/* Close */}
           <button
             aria-label="Close"
             onClick={onClose ?? (() => history.back())}
@@ -84,13 +95,15 @@ export default function CardShell({
           </button>
         </div>
 
-        {/* Steps row */}
-        <div className="px-5 pb-2">
-          <div className="flex items-center justify-end gap-3 text-sm text-gray-500">
-            <div className="flex items-center gap-1">{bars}</div>
-            <span>{statusLabel ?? `Step ${currentStep} of ${totalSteps}`}</span>
+        {/* Steps row — only when step props are provided */}
+        {showSteps && (
+          <div className="px-5 pb-2">
+            <div className="flex items-center justify-end gap-3 text-sm text-gray-500">
+              <div className="flex items-center gap-1">{bars}</div>
+              <span>{statusLabel ?? `Step ${currentStep} of ${totalSteps}`}</span>
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       <div className="px-5 pb-6 pt-5">{children}</div>

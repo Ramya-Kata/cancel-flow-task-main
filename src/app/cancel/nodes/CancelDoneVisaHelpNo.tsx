@@ -5,20 +5,19 @@ import Image from './Image'
 
 type Props = {
   onAction: (a: 'finish' | 'back') => void
-  /** optional overrides */
   contactName?: string
   contactEmail?: string
-  avatarSrc?: string // put your image in /public and pass its path or use the default here
+  avatarSrc?: string 
 }
 
 export default function CancelDoneVisaHelpNo({
   onAction,
   contactName = 'Mihailo Bozic',
   contactEmail = 'mihailo@migratemate.co',
-  avatarSrc = '/mihailo-profile.jpeg', // <-- change to your actual filename in /public
+  avatarSrc = '/mihailo-profile.jpeg', 
 }: Props) {
   return (
-    <CardShell title="Subscription Cancelled" currentStep={3} totalSteps={3}>
+    <CardShell title="Subscription Cancelled" currentStep={3} totalSteps={3} statusLabel="Completed">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left copy */}
         <div className="lg:col-span-6">

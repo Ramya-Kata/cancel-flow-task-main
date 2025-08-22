@@ -3,51 +3,28 @@
 import CardShell from './CardShell'
 import Image from './Image'
 
-type Props = {
-  onAction: (a: 'finish' | 'back') => void
-  contactName?: string
-  contactEmail?: string
-  avatarSrc?: string
-}
+type Props = { onAction: (a: 'finish' | 'back') => void }
 
-export default function CancelDoneVisaHelpNo({
-  onAction,
-  contactName = 'Mihailo Bozic',
-  contactEmail = 'mihailo@migratemate.co',
-  avatarSrc = '/mihailo-profile.jpeg',
-}: Props) {
+export default function CancelDoneVisaHelpYes({ onAction }: Props) {
   return (
     <CardShell
       title="Subscription Cancelled"
       currentStep={3}
       totalSteps={3}
-      statusLabel="Completed"          // ✅ show “Completed” pill + filled progress
-      onBack={() => onAction('back')}  // ✅ optional: back arrow like the Yes screen
+      statusLabel="Completed"            
+      
     >
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        {/* Left copy */}
         <div className="lg:col-span-6">
           <h2 className="text-[28px] lg:text-[34px] font-semibold tracking-tight text-gray-900">
-            Your cancellation’s all sorted, mate, no more charges.
+            All done, your cancellation’s been processed.
           </h2>
 
-          {/* Contact card */}
-          <div className="mt-5 rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
-            <div className="flex items-center gap-3">
-              <img src={avatarSrc} alt={contactName} className="h-10 w-10 rounded-full object-cover" />
-              <div className="min-w-0">
-                <div className="font-medium text-gray-900 truncate">{contactName}</div>
-                <div className="text-xs text-gray-600 truncate">{contactEmail}</div>
-              </div>
-            </div>
-
-            <div className="mt-4 space-y-3 text-sm text-gray-800">
-              <p className="font-medium">I’ll be reaching out soon to help with the visa side of things.</p>
-              <p>We’ve got your back, whether it’s questions, paperwork, or just figuring out your options.</p>
-              <p>
-                Keep an eye on your inbox, I’ll be in touch <span className="underline">shortly</span>.
-              </p>
-            </div>
-          </div>
+          <p className="mt-4 text-gray-800">
+            We’re stoked to hear you’ve landed a job and sorted your visa. Big
+            congrats from the team. 🙌
+          </p>
 
           <hr className="my-6 border-gray-200" />
 
@@ -61,6 +38,7 @@ export default function CancelDoneVisaHelpNo({
           </button>
         </div>
 
+        {/* Right image */}
         <div className="hidden lg:block lg:col-span-6 lg:self-start">
           <Image className="h-[360px]" />
         </div>
